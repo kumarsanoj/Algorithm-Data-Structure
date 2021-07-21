@@ -1,29 +1,23 @@
-class Graph {
-    constructor() {
-        this.noOfNodes = 0;
-        this.adjacentList = {};
+//logest substring in a string
+
+const getLengthOfLongestSubString = (s) => {
+  if (s.length < 1) return s.length;
+  let map = {};
+  let maxLength = 0;
+  
+  let left = 0, right = 0, STRING_LENGTH = s.length;
+  while( right < STRING_LENGTH) {
+    let char = s[right];
+    if (map[char] !== undefined && map[char] >= left)  {
+      left = map[char] + 1;
+      map[char] = right;
+      right++;
+    } else {
+      map[char] = right;
+      right++;
+      maxLength = Math.max(maxLength, right - left)
+
     }
-    addVertex(node) {
-        if (!this.adjacentList[node]) {
-            this.adjacentList[node] = [];
-            this.noOfNodes++;
-        }
-    }
-    addEdge(node1, node2) {
-        if (this.adjacentList[node1] || this.adjacentList[node2]) {
-            if (this.adjacentList[node1]) {
-                this.adjacentList[node1].push(node2);
-            } else {
-                this.adjacentList[node2].push(node1);
-            }
-        }
-    }
-    showAdjacentList() {
-        if(Object.keys(this.adjacentList).length) {
-            for(let node in this.adjacentList) {
-                let str = node + '-->' + this.adjacentList[node].join(',');
-                console.log(str);
-            }
-        }
-    }
+  }
+  return maxLength;
 }
