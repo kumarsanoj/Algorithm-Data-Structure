@@ -1,23 +1,21 @@
-//logest substring in a string
-
-const getLengthOfLongestSubString = (s) => {
-  if (s.length < 1) return s.length;
-  let map = {};
-  let maxLength = 0;
-  
-  let left = 0, right = 0, STRING_LENGTH = s.length;
-  while( right < STRING_LENGTH) {
-    let char = s[right];
-    if (map[char] !== undefined && map[char] >= left)  {
-      left = map[char] + 1;
-      map[char] = right;
-      right++;
-    } else {
-      map[char] = right;
-      right++;
-      maxLength = Math.max(maxLength, right - left)
-
+// Quick Sort
+function quickSort(arr) {
+    if(arr.length === 1) return arr;
+    let pivot = arr[arr.length - 1];
+    let left = [];
+    let right = [];
+    for (let i = 0 ; i < arr.length - 1; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
     }
-  }
-  return maxLength;
+    if (left.length > 0 && right.length > 0) {
+        return [...quickSort(left), pivot, ...quickSort(right)];
+    } else if (left.length > 0) {
+        return [...quickSort(left), pivot];
+    } else  {
+        return [pivot, ...quickSort(right)];
+    } 
 }
